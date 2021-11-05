@@ -4,7 +4,6 @@ const path = require("path");
 fs.mkdir(path.join(__dirname, "files-copy"), (err) => {
   if (err) {
   }
-  console.log(1231);
 });
 
 fs.readdir(

@@ -1,12 +1,10 @@
 let fs = require("fs");
 let path = require("path");
 
-console.log(path.dirname(__dirname));
 fs.readdir(
   `${path.dirname(__dirname)}/03-files-in-folder/secret-folder`,
   (err, files) => {
     if (err) throw err;
-    console.log(files);
 
     files.forEach((item) => {
       fs.stat(
