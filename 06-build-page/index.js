@@ -55,9 +55,6 @@ async function qwe() {
               if (err) throw err;
 
               template = template.replace(`{{${comp}}}`, component);
-              fs.writeFile(`${__dirname}/template.html`, template, (err) => {
-                if (err) throw err;
-              });
 
               fs.writeFile(
                 `${__dirname}/project-dist/index.html`,
@@ -102,3 +99,4 @@ fs.readdir(path.join(__dirname, "styles"), (err, files) => {
     }
   }
 });
+
