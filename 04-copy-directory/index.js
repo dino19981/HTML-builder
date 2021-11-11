@@ -9,13 +9,11 @@ async function func() {
     { force: true, recursive: true },
     (err) => {
       if (err) {
-        console.error(error.message);
       }
     }
   );
   await mkdir(`04-copy-directory/files-copy`, { recursive: true }, (err) => {
     if (err) {
-      console.log(err.message);
     }
   });
   const files = await readdir(dirPath);
