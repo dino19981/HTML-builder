@@ -3,20 +3,19 @@ const path = require("path");
 
 makeDir();
 async function makeDir() {
-  let pathToremove = await fs.promises.readdir(
-    path.join(__dirname, "project-dist", "assets")
-  );
-
-  for (let i = 0; i < pathToremove.length; i++) {
-    await fs.rm(
-      path.join(__dirname, "project-dist", "assets", pathToremove[i]),
-      { recursive: true },
-      (err) => {
-        console.log(pathToremove[i] + " remove");
+  setTimeout(() => {
+    fs.readdir(path.join(__dirname, "project-dist", "assets"), (err, data) => {
+      for (let i = 0; i < data.length; i++) {
+        fs.rm(
+          path.join(__dirname, "project-dist", "assets", data[i]),
+          { recursive: true },
+          (err) => {
+            console.log(data[i] + " remove");
+          }
+        );
       }
-    );
-  }
-
+    });
+  }, 100);
   await fs.mkdir(`${__dirname}/project-dist`, (err) => {
     if (err) {
     }
@@ -55,7 +54,7 @@ async function makeDir() {
         });
       });
     });
-  }, 100);
+  }, 150);
 }
 
 async function qwe() {
