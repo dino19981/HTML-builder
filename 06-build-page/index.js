@@ -3,6 +3,20 @@ const path = require("path");
 
 makeDir();
 async function makeDir() {
+  let pathToremove = await fs.promises.readdir(
+    path.join(__dirname, "project-dist", "assets")
+  );
+
+  for (let i = 0; i < pathToremove.length; i++) {
+    await fs.rm(
+      path.join(__dirname, "project-dist", "assets", pathToremove[i]),
+      { recursive: true },
+      (err) => {
+        console.log(pathToremove[i] + " remove");
+      }
+    );
+  }
+
   await fs.mkdir(`${__dirname}/project-dist`, (err) => {
     if (err) {
     }
@@ -11,6 +25,7 @@ async function makeDir() {
   await fs.mkdir(`${__dirname}/project-dist/assets`, (err) => {
     if (err) {
     }
+    console.log("ass");
   });
 
   await fs.appendFile(`${__dirname}/project-dist/index.html`, "", (err) => {
@@ -18,24 +33,29 @@ async function makeDir() {
     }
   });
 
-  await fs.readdir(`${__dirname}/assets`, (err, items) => {
-    if (err) throw err;
+  setTimeout(() => {
+    fs.readdir(`${__dirname}/assets`, (err, items) => {
+      if (err) throw err;
 
-    items.forEach((item) => {
-      fs.mkdir(`${__dirname}/project-dist/assets/${item}`, (err) => {
-        if (err);
-      });
-      fs.readdir(`${__dirname}/assets/${item}`, (err, files) => {
-        if (err);
-        files.forEach((file) => {
-          fs.promises.copyFile(
-            `${__dirname}/assets/${item}/${file}`,
-            `${__dirname}/project-dist/assets/${item}/${file}`
-          );
+      items.forEach((item) => {
+        fs.mkdir(`${__dirname}/project-dist/assets/${item}`, (err) => {
+          if (err);
+          console.log(item + " создан");
+        });
+        fs.readdir(`${__dirname}/assets/${item}`, (err, files) => {
+          if (err);
+          files.forEach((file) => {});
+
+          files.forEach((file) => {
+            fs.promises.copyFile(
+              `${__dirname}/assets/${item}/${file}`,
+              `${__dirname}/project-dist/assets/${item}/${file}`
+            );
+          });
         });
       });
     });
-  });
+  }, 100);
 }
 
 async function qwe() {
@@ -99,4 +119,3 @@ fs.readdir(path.join(__dirname, "styles"), (err, files) => {
     }
   }
 });
-
